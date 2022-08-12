@@ -1,16 +1,15 @@
-# This is a sample Python script.
+from marvel import Marvel
+from keys import public_key, private_key
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+marvel = Marvel(PUBLIC_KEY=public_key,
+                PRIVATE_KEY=private_key)
 
+characters = marvel.characters
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+my_char = characters.all(nameStartsWith="Captain")["data"]["results"]
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+for char in my_char:
+    print(char["id"], char["name"])
+    for comic in char["comics"]["items"]:
+        print(comic["name"])
+    print("---------------------")
