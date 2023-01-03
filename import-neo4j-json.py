@@ -10,6 +10,7 @@ import requests  # `pip install requests`
 from ratelimit import limits  # `pip install ratelimit`
 from datetime import datetime
 import json
+from keys import public_key, private_key
 
 # variables
 url_prefix = 'https://gateway.marvel.com:443/'
@@ -22,8 +23,8 @@ skipVal = 0
 def call_marvel_api(url):
     timestamp = datetime.now()
     timestamp_str = timestamp.strftime("%Y%m%d %H:%M:%S")
-    public_api_key = '<your_public_API_key_here>'
-    private_api_key = '<your_private_API_key_here>'
+    public_api_key = public_key
+    private_api_key = private_key
     hashVal = hashlib.md5((timestamp_str + private_api_key + public_api_key).encode('utf-8')).hexdigest()
     full_url = url + '&ts=' + timestamp_str + '&apikey=' + public_api_key + '&hash=' + hashVal
 
